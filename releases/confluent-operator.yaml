@@ -16,6 +16,8 @@ spec:
 
   values:
 
+    operator:
+      enabled: true
     ## 
     ## Overriding values for Chart's values.yaml for AWS
     ##
@@ -129,6 +131,7 @@ spec:
         kafka:
           brokerCount: 3
           bootstrapEndpoint: kafka:9071
+
     ##
     ## Schema Registry
     ##
