@@ -10,14 +10,18 @@ metadata:
 spec:
   releaseName: confluent-operator
   chart:
-    #git: ssh://git@github.com/confluent
+    git: ssh://git@github.com/confluentinc/operator
     ref: master
     path: charts/confluent-operator
 
   values:
 
-    operator:
-      enabled: true
+
+    serviceAccounts:
+
+      ## Confluent Operator requires cluster-level admin access
+      operator:
+        name: cc-operator
 
     ## 
     ## Overriding values for Chart's values.yaml for AWS
@@ -50,15 +54,53 @@ spec:
           fqdn: docker.io
           credential:
             required: false
+
+          # fqdn:
+          # credential:
+          #   ## Enable if authentication is required to pull images in kubernetes cluster.
+          #   ##
+          #   required: false
+          #   ## Docker login username
+          #   ##
+          #   username: ""
+          #   ## Docker login password
+          #   ##
+          #   password: ""
+       
+      # pod:
+      #   securityContext:
+      #     fsGroup: 1001
+      #     runAsUser: 1001
+      #     runAsGroup: ""
+      #     runAsNonRoot: true
+      #     supplementalGroups: []
+      #     seLinuxOptions: {}
+
       sasl:
         plain:
           username: test
           password: test123
 
+      ##
+      ## Init Container configurations
+      ##
+      initContainer:
+        image:
+          repository: confluentinc/cp-init-container-operator
+          tag: 5.4.0.0
+
+
+    ##      
+    ## Operator
+    ##
+    operator:
+      enabled: true
+
     ##      
     ## Zookeeper cluster
     ##
     zookeeper:
+      enabled: false
       name: zookeeper
       replicas: 3
       resources:
@@ -70,6 +112,7 @@ spec:
     ## Kafka Cluster
     ##
     kafka:
+      enabled: false
       name: kafka
       replicas: 3
       resources:
@@ -91,6 +134,7 @@ spec:
     ## Connect Cluster
     ##
     connect:
+
       name: connectors
       replicas: 2
       tls:
