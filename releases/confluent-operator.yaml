@@ -10,7 +10,7 @@ metadata:
 spec:
   releaseName: confluent-operator
   chart:
-    git: ssh://git@github.com/confluentinc/operator
+    git: ssh://git@github.com:robparrott/k8s-gitops.git
     ref: master
     path: charts/confluent-operator
 
