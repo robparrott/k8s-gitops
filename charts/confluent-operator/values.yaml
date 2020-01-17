@@ -87,7 +87,7 @@ global:
       tag: 5.4.0.0
 
 operator:
-  enabled: false
+  enabled: true
 
 zookeeper:
   enabled: false
