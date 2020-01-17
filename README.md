@@ -12,7 +12,9 @@ eksctl create cluster -f eksctl-cluster.yaml
 
 # Enable GitOps
 
-Setup gitops repo
+Integrate with FluxCD (https://fluxcd.io/)
+
+Setup gitops repo 
 
 ```
 touch README.md
