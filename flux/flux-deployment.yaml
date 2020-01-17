@@ -147,7 +147,7 @@ spec:
         # - --git-path=subdir1,subdir2
         - --git-label=flux
         - --git-user=Flux
-        - --git-email=robparrott@gmail.com
+        - --git-email=robparrott+gitops@gmail.com
 
         # Include these two to enable git commit signing
         # - --git-gpg-key-import=/root/gpg-import
