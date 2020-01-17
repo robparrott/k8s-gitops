@@ -16,7 +16,6 @@ spec:
 
   values:
 
-
     serviceAccounts:
 
       ## Confluent Operator requires cluster-level admin access
@@ -94,7 +93,7 @@ spec:
     ## Operator
     ##
     operator:
-      enabled: true
+      enabled: false
 
     ##      
     ## Zookeeper cluster
