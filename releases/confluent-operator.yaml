@@ -92,7 +92,7 @@ spec:
     ## Operator
     ##
     operator:
-      enabled: false
+      enabled: true
 
     ##      
     ## Zookeeper cluster
@@ -132,7 +132,7 @@ spec:
     ## Connect Cluster
     ##
     connect:
-
+      enabled: false
       name: connectors
       replicas: 2
       tls:
@@ -158,6 +158,7 @@ spec:
     ## Replicator Connect Cluster
     ##
     replicator:
+      enabled: false
       name: replicator
       replicas: 2
       tls:
@@ -179,6 +180,7 @@ spec:
     ## Schema Registry
     ##
     schemaregistry:
+      enabled: false
       name: schemaregistry
       tls:
         enabled: false
@@ -199,6 +201,7 @@ spec:
     ## KSQL
     ##
     ksql:
+      enabled: false
       name: ksql
       replicas: 2
       tls:
@@ -228,6 +231,7 @@ spec:
     ## Control Center (C3) Resource configuration
     ##
     controlcenter:
+      enabled: false
       name: controlcenter
       license: ""
       ##
