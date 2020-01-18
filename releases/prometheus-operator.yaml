@@ -8,7 +8,7 @@ metadata:
   #   fluxcd.io/automated: "true"
   #   fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
 spec:
-  releaseName: monitor
+  releaseName: prometheus-operator
   targetNamespace: monitoring
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
