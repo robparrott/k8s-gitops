@@ -2554,17 +2554,17 @@ spec:
       - metadata
 
 
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: olm
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: olm
   
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: operators
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: operators
   
 ---
 apiVersion: rbac.authorization.k8s.io/v1
