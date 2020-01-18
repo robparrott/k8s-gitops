@@ -46,7 +46,7 @@
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
-  name: fluentd
+  name: fluentd-host
   namespace: logging
   labels:
     k8s-app: fluentd-logging
