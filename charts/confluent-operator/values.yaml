@@ -1,75 +1,115 @@
-## If false, operator will not be installed
-##
-enabled: false
-## Confluent operator name
-##
-name: cc-operator
-## License Key for Operator
-##
-licenseKey: ""
-publicKey: |-
-  -----BEGIN PUBLIC KEY-----
-  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvaGy8TOdbCMySM7zqZsx
-  n62yuE+BhIPlc9z9ctrX+tBWNCCJePZbKHTZS9uKLeKUi9u07ts/35XRnE4ATD6q
-  lwjnSoJOkeIXcYiJ+XGExN1oRE8Rl5otvdmJEsb9Y6Jsfe2lRCCsZNx6k1s1NmQF
-  R4wnRiKylIiYJ9uWUGfH18JKZqM8z9QqkZ/+zQkzHNYsXn/YyRuDIQXeUSechr93
-  Jjt79AikskicoT04lqz/GaHz2WJEyuvLLE1jNBOComKl05Qb+yvJmGnt/7HX6HT7
-  3hnCXbslwtzp0CmeGOiJRbJxbahkTFqh1oKqZXUDCZrKCNNRvXqN/QHqnawo6kJy
-  8wIDAQAB
-  -----END PUBLIC KEY-----
-## Confluent Operator Image Information
-##
-image:
-  repository: confluentinc/cp-operator-service
-  tag: 0.275.0
-  pullPolicy: Always
-## Confluent Operator Pod Resources
-##
-resources:
-  limits:
-    cpu: 500m
-    memory: 512Mi
-  requests:
-    cpu: 100m
-    memory: 256Mi
-## Pod termination grace-period
-##
-terminationGracePeriodSeconds: 30
-## Enable debugging
-##
-debug: false
-##
-## Configure affinity,
-## More information here https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
-##
-affinity: {}
-##  Example for nodeAffinity, configure as required.
-##affinity:
-##  nodeAffinity:
-##    requiredDuringSchedulingIgnoredDuringExecution:
-##      nodeSelectorTerms:
-##      - matchExpressions:
-##        - key: "node-role.kubernetes.io/compute"
-##          operator: In
-##          values:
-##          - "true"
+# Default values for confluent-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+serviceAccounts:
+   ## Confluent Operator requires cluster-level admin access
+   ##
+   operator:
+      name: cc-operator
 
-##
-## Configure tolerations
-## https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-##
-tolerations: []
-##
-##tolerations:
-##- key: "dedicated"
-##  operator: "Equal"
-##  value: "operator"
-##  effect: "NoSchedule"
+global:
+  provider:
+    ## Support values: aws | gcp | azure | private
+    ##
+    name: ""
+    ## Name of region
+    ##
+    region: ""
+    kubernetes:
+      ## Configure if k8s internal domain name is different than svc.cluster.local
+      ##  
+      clusterDomain: ""
+      deployment:
+        ## If kubernetes is deployed in multi zone mode then specify availability-zones as appropriate
+        ## If kubernetes is deployed in single availability zone then specify appropriate values
+        ## For the private cloud, use kubernetes node labels as appropriate
+        zones: []
+    storage:
+      ## https://kubernetes.io/docs/concepts/storage/storage-classes/
+      ##
+      provisioner: ""
+      ## Parameters for storage-class. Please go through
+      ## https://kubernetes.io/docs/concepts/storage/storage-classes/ to fill parameters
+      ## For multi zone deployment, use zones otherwise use zone parameter as appropriate
+      parameters: {}
+      reclaimPolicy: Delete
+      mountOptions: []
+      volumeBindingMode: ""
+      allowedTopologies: []
+      ## Add annotations in storage-class resources
+      ##
+      annotations:
+        storageclass.beta.kubernetes.io/is-default-class: "false"
+    registry:
+      ## Docker registry endpoint where Confluent Images are available.
+      ##
+      fqdn:
+      credential:
+        ## Enable if authentication is required to pull images in kubernetes cluster.
+        ##
+        required: false
+        ## Docker login username
+        ##
+        username: ""
+        ## Docker login password
+        ##
+        password: ""
+  ## All containers to run as non root with specific UID/GUID
+  ## For OpenShift enable randomUID to true. If randomUID is false, then you must use right UID/GUID and configure confluent-scc.yaml accordingly.
+  ## The scripts can be found at scripts/openshift/confluent-scc.yaml
+  ## https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#podsecuritycontext-v1-core
+  pod:
+    securityContext:
+      fsGroup: 1001
+      runAsUser: 1001
+      runAsGroup: ""
+      runAsNonRoot: true
+      supplementalGroups: []
+      seLinuxOptions: {}
+    ## Only enable for OpenShift Platform if random UID is required to run container process.
+    ## Follow Readme.md in scripts/openshift folder for more information.
+    ## For Debian based CP images, enable will run the container process as root UID.
+    randomUID: false
+  ## 
+  ## This is configured for inter-broker-configurations username/password. 
+  ## All component and clients use these credentials to communicate with Kafka.
+  ##
+  sasl:
+    plain:
+      username: test
+      password: test123
+  ##
+  ## Init Container configurations
+  ##
+  initContainer:
+    image:
+      repository: confluentinc/cp-init-container-operator
+      tag: 5.4.0.0
 
-metrics:
-  dataDog:
-    enabled: false
-    port: 8125
-  prometheus:
-    enabled: false
-    port: 7777
+operator:
+  enabled: false
+
+zookeeper:
+  enabled: false
+
+kafka:
+  enabled: false
+  
+schemaregistry:
+  enabled: false
+
+controlcenter:
+  enabled: false
+
+replicator:
+  enabled: false
+
+connect:
+  enabled: false
+
+ksql:
+  enabled: false
+
+externaldns:
+  enabled: false
+  
