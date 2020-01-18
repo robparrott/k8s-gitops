@@ -15,5 +15,13 @@ spec:
     name: prometheus-operator
     version: 8.5.11
 
-#  values:
+  values:
 
+    prometheus:
+      enabled: true
+
+    alertmanager:
+      enabled: true
+
+    grafana:
+      enabled: true
