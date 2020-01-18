@@ -1,0 +1,19 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: kibana
+  namespace: logging
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+spec:
+  releaseName: kibana
+  chart:
+    git: https://github.com/elastic/helm-charts.git
+    ref: master
+    path: ./helm-charts/kibana
+
+  values:
+
+    protocol: http
