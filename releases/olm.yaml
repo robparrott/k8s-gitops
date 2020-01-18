@@ -1,3 +1,8 @@
+kubectl apply -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/0.13.0/crds.yaml
+kubectl apply -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/0.13.0/olm.yaml
+
+
+
 ---
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
@@ -11,6 +16,6 @@ spec:
   releaseName: olm
   targetNamespace: operators
   chart:
-    git: https://github.com/operator-framework/operator-lifecycle-manager.git
+    git: git@github.com:operator-framework/operator-lifecycle-manager.git
     ref: master
     path: deploy/chart 
