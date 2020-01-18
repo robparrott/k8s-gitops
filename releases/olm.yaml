@@ -9,7 +9,7 @@ metadata:
   #   fluxcd.io/automated: "true"
   #   fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
 spec:
-  releaseName: olm
+  releaseName: operator-lifecycle-manager
   targetNamespace: operators
   chart:
     git: "git@github.com:operator-framework/operator-lifecycle-manager.git"
