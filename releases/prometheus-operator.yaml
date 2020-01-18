@@ -18,17 +18,12 @@ spec:
   values:
 
     prometheus:
-
-      enabled: false
-
-      ## Annotations for Prometheus
-      ##
-      annotations: {}
+      enabled: true
 
     alertmanager:
+      enabled: true
 
-      ## Deploy alertmanager
-      ##
+    grafana:
       enabled: true
 
     #   ## Service account for Prometheuses to use.
