@@ -19,7 +19,7 @@ spec:
     replicaCount: 1
 
     ## Enable possibility to skip login
-    enableSkipLogin: false
+    enableSkipLogin: true
 
     ## Serve application over HTTP without TLS
     enableInsecureLogin: false
