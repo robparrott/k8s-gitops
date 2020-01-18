@@ -1,3 +1,3 @@
-Note: in order to make this work with GitOps and FLux, you need to flatten out this helm chat into one each per component.
+Note: in order to make this work with GitOps and Flux, you need to comment out each repository references, and let helm implicitly look for the chart in the `charts/` directory.
 
-This is because this is a priviate heml chart and not published, so sub charts are internal. This breaks typical CD at times with helm.
+You also need to upgrade the docker image version of the helm operator to `1.0.0-rc7` or so to avoid a bug.
