@@ -4,5 +4,5 @@ metadata:
   namespace: istio-operator
   name: istiocontrolplane
 spec:
-  profile: minimal
-  
+  profile: default
+
