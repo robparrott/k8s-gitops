@@ -1,0 +1,16 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: olm 
+  namespace: operators
+  # annotations:
+  #   fluxcd.io/automated: "true"
+  #   fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+spec:
+  releaseName: olm
+  targetNamespace: operators
+  chart:
+    git: https://github.com/operator-framework/operator-lifecycle-manager.git
+    ref: master
+    path: deploy/chart 
