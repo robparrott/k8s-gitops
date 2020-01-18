@@ -1,5 +1,8 @@
 dependencies:
-
+  - name: operator
+    version: ">=1.0.0"
+    repository: file://confluent-operator/charts/operator
+    condition: operator.enabled
   - name: externaldns
     version: ">=1.0.0"
     repository: file://./charts/externaldns
@@ -32,8 +35,5 @@ dependencies:
     version: ">=1.0.0"
     repository: file://./charts/ksql
     condition: ksql.enabled
-    
-  - name: operator
-    version: ">=1.0.0"
-    repository: file://./charts/operator
-    condition: operator.enabled
+
+

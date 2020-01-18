@@ -93,7 +93,7 @@ spec:
     ## Operator
     ##
     operator:
-      enabled: false
+      enabled: true
 
     ##      
     ## Zookeeper cluster
