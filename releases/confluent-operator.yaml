@@ -99,7 +99,7 @@ spec:
     ## Zookeeper cluster
     ##
     zookeeper:
-      enabled: true
+      enabled: false
       name: zookeeper
       replicas: 3
       resources:
