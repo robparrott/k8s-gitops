@@ -25,6 +25,11 @@ spec:
 
     grafana:
       enabled: true
+      defaultDashboardsEnabled: true
+      adminPassword: prom-operator
+
+    nodeExporter:
+      enabled: true
 
     #   ## Service account for Prometheuses to use.
     #   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
