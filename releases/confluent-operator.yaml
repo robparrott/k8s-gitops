@@ -12,7 +12,7 @@ spec:
   chart:
     git: https://github.com/robparrott/k8s-gitops.git
     ref: master
-    path: charts/confluent-operator
+    path: ./
 
   values:
 
