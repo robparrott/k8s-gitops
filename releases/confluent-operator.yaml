@@ -180,7 +180,7 @@ spec:
     ## Schema Registry
     ##
     schemaregistry:
-      enabled: false
+      enabled: true
       name: schemaregistry
       tls:
         enabled: false
@@ -231,7 +231,7 @@ spec:
     ## Control Center (C3) Resource configuration
     ##
     controlcenter:
-      enabled: false
+      enabled: true
       name: controlcenter
       license: ""
       ##
