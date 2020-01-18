@@ -4,9 +4,9 @@ kind: HelmRelease
 metadata:
   name: fluentd
   namespace: logging
-  # annotations:
-  #   fluxcd.io/automated: "true"
-  #   fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
 spec:
   releaseName: fluentd
   targetNamespace: logging
@@ -70,6 +70,24 @@ spec:
           port 24220
           tag fluentd.monitor.metrics
         </source>
+        <source>
+          @type prometheus
+          port 24231
+        </source>
+        # input plugin that collects metrics from MonitorAgent
+        <source>
+          @type prometheus_monitor
+          <labels>
+            host ${hostname}
+          </labels>
+        </source>
+        # input plugin that collects metrics for output plugin
+        <source>
+          @type prometheus_output_monitor
+          <labels>
+            host ${hostname}
+          </labels>
+        </source>        
 
       system.conf: |-
         <system>
