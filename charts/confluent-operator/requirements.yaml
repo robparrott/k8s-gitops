@@ -1,7 +1,7 @@
 dependencies:
   - name: operator
     version: ">=1.0.0"
-#    repository: file://./charts/operator
+    repository: file://./charts/operator/
     condition: operator.enabled
   - name: externaldns
     version: ">=1.0.0"
