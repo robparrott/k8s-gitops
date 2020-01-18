@@ -18,7 +18,7 @@ spec:
   values:
 
     prometheusOperator:
-      enabled: false
+      enabled: true
 
     prometheus:
       enabled: false
