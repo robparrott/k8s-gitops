@@ -1,7 +1,7 @@
 dependencies:
   - name: operator
     version: ">=1.0.0"
-    repository: file://confluent-operator/charts/operator
+    repository: file://./operator
     condition: operator.enabled
   - name: externaldns
     version: ">=1.0.0"
