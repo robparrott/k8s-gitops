@@ -1,0 +1,21 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: fluentd
+  namespace: logging
+  # annotations:
+  #   fluxcd.io/automated: "true"
+  #   fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+spec:
+  releaseName: fluentd
+  targetNamespace: logging
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: fluentd
+    version: 8.5.11
+
+  # values:
+
+  #   prometheus:
+  #     enabled: true
