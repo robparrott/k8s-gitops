@@ -12,6 +12,7 @@ spec:
   chart:
     git: https://github.com/hashicorp/vault-helm.git
     ref: master
+    path: ./
 
   values:
 
