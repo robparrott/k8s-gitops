@@ -67,3 +67,16 @@ eksctl scale nodegroup \
         --nodes=6
 ```
 
+# Getting the cluster admin bearer token
+
+Service Account "eks-admin" has a bearer token for access, so you need to dig that out to access Kubernetes Dashboard:
+
+```
+SECRET=$(kubectl -n kube-system get secret | grep eks-admin-token | awk '{print $1}')
+TOKEN=$( kubectl -n kube-system describe secret ${SECRET} | grep "^token:" | awk '{print $2}' )
+echo $TOKEN
+
+```
+
+
+
