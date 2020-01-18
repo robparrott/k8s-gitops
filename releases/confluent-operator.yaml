@@ -17,7 +17,7 @@ spec:
   values:
 
     serviceAccounts:
-
+     
       ## Confluent Operator requires cluster-level admin access
       operator:
         name: cc-operator
@@ -44,7 +44,7 @@ spec:
           ## Use Retain if you want to persist data after CP cluster has been uninstalled
           reclaimPolicy: Delete
           parameters:
-            encrypted: "false"
+            encrypted: "true"
             kmsKeyId: ""
             type: gp2
         ## Docker registry endpoint where Confluent Images are available.
