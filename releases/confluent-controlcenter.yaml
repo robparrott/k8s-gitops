@@ -2,25 +2,20 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: confluent-operator
-  namespace: confluent-operator
+  name: kafka
+  namespace: confluent-kafka
   annotations:
     fluxcd.io/automated: "true"
     fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
 spec:
-  releaseName: confluent-operator
+  releaseName: kafka
   chart:
     git: https://github.com/robparrott/k8s-gitops.git
     ref: master
-    path: charts/confluent-operator
+    path: charts/kafka
 
   values:
 
-    serviceAccounts:
-     
-      ## Confluent Operator requires cluster-level admin access
-      operator:
-        name: cc-operator
 
     ## 
     ## Overriding values for Chart's values.yaml for AWS
@@ -89,8 +84,23 @@ spec:
           tag: 5.4.0.0
 
 
-    ##      
-    ## Operator
     ##
-    operator:
-      enabled: true
+    ## Kafka Cluster
+    ##
+    kafka:
+      name: kafka
+      replicas: 3
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1Gi
+      loadBalancer:
+        enabled: false
+        domain: ""
+      tls:
+        enabled: false
+        fullchain: |-
+        privkey: |-
+        cacerts: |-
+      metricReporter:
+        enabled: false
