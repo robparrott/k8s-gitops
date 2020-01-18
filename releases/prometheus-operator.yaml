@@ -21,18 +21,18 @@ spec:
       enabled: true
 
     prometheus:
-      enabled: false
+      enabled: true
 
     alertmanager:
-      enabled: false
+      enabled: true
 
     grafana:
-      enabled: false
+      enabled: true
       defaultDashboardsEnabled: true
       adminPassword: prom-operator
 
     nodeExporter:
-      enabled: false
+      enabled: true
 
     #   ## Service account for Prometheuses to use.
     #   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
