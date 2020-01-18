@@ -116,7 +116,7 @@ spec:
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 512Mi #1Gi
       loadBalancer:
         enabled: false
         domain: ""

@@ -48,4 +48,22 @@ and confirm things are running.
 
 You may need to get the newly created key and also add it as a deploy key in GitHub ... little flaky. Install `fluxcyl` and run `fluxctl identity --k8s-fwd-ns flux`. See https://docs.fluxcd.io/en/latest/tutorials/get-started.html#giving-write-access. YMMV.
 
+# Scaling Manually
+
+Determine the relevant nodegroup name (should be the name from the yaml file):
+```
+eksctl get nodegroup \
+        --region=us-east-2 \
+        --cluster=parrott-confluent-kafka
+```
+
+And then scale up or down:
+
+```
+eksctl scale nodegroup \
+        --region=us-east-2 \
+        --cluster=parrott-confluent-kafka \
+        --name=general \
+        --nodes=6
+```
 
