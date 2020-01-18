@@ -112,7 +112,7 @@ spec:
     kafka:
       enabled: true
       name: kafka
-      replicas: 2
+      replicas: 3
       resources:
         requests:
           cpu: 200m
