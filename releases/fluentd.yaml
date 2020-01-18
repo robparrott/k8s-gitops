@@ -15,7 +15,34 @@ spec:
     name: fluentd
     version: 2.3.2
 
-  # values:
+  values:
 
-  #   prometheus:
-  #     enabled: true
+    output:
+      host: elasticsearch.logging.svc.cluster.local
+      port: 9200
+      scheme: http
+      sslVersion: TLSv1
+      buffer_chunk_limit: 2M
+      buffer_queue_limit: 8
+
+
+    # Enable autoscaling using HorizontalPodAutoscaler
+    autoscaling:
+      enabled: false
+      minReplicas: 2
+      maxReplicas: 5
+      metrics:
+        - type: Resource
+          resource:
+            name: cpu
+            target:
+              type: Utilization
+              averageUtilization: 60
+        - type: Resource
+          resource:
+            name: memory
+            target:
+              type: Utilization
+              averageUtilization: 60
+
+    terminationGracePeriodSeconds: 30
