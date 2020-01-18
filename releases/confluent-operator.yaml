@@ -88,7 +88,6 @@ spec:
           repository: confluentinc/cp-init-container-operator
           tag: 5.4.0.0
 
-
     ##      
     ## Operator
     ##
