@@ -32,6 +32,7 @@ dependencies:
     version: ">=1.0.0"
     repository: file://./charts/ksql
     condition: ksql.enabled
+    
   - name: operator
     version: ">=1.0.0"
     repository: file://./charts/operator
