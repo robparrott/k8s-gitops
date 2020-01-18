@@ -2,8 +2,8 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: confluent-operator
-  namespace: confluent-operator
+  name: zookeeper
+  namespace: confluent-kafka
   annotations:
     fluxcd.io/automated: "false"
     fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*

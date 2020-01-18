@@ -3,7 +3,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: kafka
-  namespace: kafka
+  namespace: confluent-kafka
   annotations:
     fluxcd.io/automated: "true"
     fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
