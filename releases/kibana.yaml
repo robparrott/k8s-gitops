@@ -10,9 +10,9 @@ metadata:
 spec:
   releaseName: kibana
   chart:
-    git: https://github.com/elastic/helm-charts.git
-    ref: master
-    path: ./helm-charts/kibana
+    repository: https://helm.elastic.co
+    name: kibana
+    version: 7.5.1
 
   values:
 

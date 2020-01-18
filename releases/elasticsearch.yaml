@@ -9,7 +9,6 @@ metadata:
     fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
 spec:
   releaseName: elasticsearch
-
   chart:
     repository: https://helm.elastic.co
     name: elasticsearch
