@@ -18,7 +18,7 @@ spec:
   values:
 
     output:
-      host: elasticsearch.logging.svc.cluster.local
+      host: elasticsearch-master.logging.svc.cluster.local
       port: 9200
       scheme: http
       sslVersion: TLSv1
