@@ -110,6 +110,7 @@ spec:
     ## Kafka Cluster
     ##
     kafka:
+      enabled: false
       name: kafka
       replicas: 2
       resources:
