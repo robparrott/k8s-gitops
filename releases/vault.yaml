@@ -16,9 +16,18 @@ spec:
 
   values:
 
+    replicaCount: 3
+    strategy:
+      type: RollingUpdate
+
+    service:
+      name: vault
+      type: ClusterIP
+      port: 8200
+
     image:
       repository: vault
-      tag: 1.2.3
+      tag: 1.3.1
       pullPolicy: IfNotPresent
 
     vault:
