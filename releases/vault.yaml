@@ -1,5 +1,3 @@
-
-
 ---
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
@@ -38,16 +36,10 @@ spec:
     unsealer:
       image:
         repository: banzaicloud/bank-vaults
-        tag: 0.7.1
+        tag: master
         pullPolicy: IfNotPresent
-      args: [
-          "--mode",
-          "k8s",
-          "--k8s-secret-namespace",
-          "vault",
-          "--k8s-secret-name",
-          "bank-vaults"
-      ]
+      args: ["--mode", "k8s", "--k8s-secret-namespace", "vault", "--k8s-secret-name", "bank-vaults"]
+
       # metrics:
       #   enabled: true
       #   debug: true
@@ -61,6 +53,7 @@ spec:
       #     prometheus.io/scrape: "true"
       #     prometheus.io/path: "/metrics"
       #     prometheus.io/port: "9091"
+
 
 # ---
 # apiVersion: vault.banzaicloud.com/v1alpha1
@@ -99,7 +92,6 @@ spec:
 #   # ETCD Operator, however it can be used to set any arbitrary annotations on the ETCD Cluster.
 #   etcdAnnotations:
 #     etcd.database.coreos.com/scope: clusterwide
-  
 #   etcdVersion: "3.3.17"
 
 #   # Annotations to be applied to the POD Specs
