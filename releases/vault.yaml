@@ -76,7 +76,7 @@ spec:
         - secretName: mysql-vault
           secretKey: mysql-root-password
           envName: MYSQL_ROOT_PASSWORD
-          
+
       # Allows adding various custom eenvironment variables directly.
       envs: []
         # - name: GOOGLE_APPLICATION_CREDENTIALS
@@ -123,6 +123,7 @@ spec:
                 bound_service_account_namespaces: default
                 policies: allow_secrets
                 ttl: 1h
+
         secrets:
           - path: secret
             type: kv
@@ -147,11 +148,6 @@ spec:
                   creation_statements: "CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}'; GRANT ALL ON `app\_%`.* TO '{{name}}'@'%';"
                   default_ttl: "10m"
                   max_ttl: "24h"
-          
-
-        # envs: [ { }]
-        # customSecrets: []
-
 
       logLevel: debug    
 
@@ -178,6 +174,9 @@ spec:
 
         ui: true
 
+        # See https://www.vaultproject.io/docs/configuration/storage/ for storage backends
+        storage: {}
+
 
   #       envSecrets: 
   #         - secretName: mysql-vault
@@ -196,7 +195,11 @@ spec:
         repository: banzaicloud/bank-vaults
         tag: master
         pullPolicy: IfNotPresent
-      args: ["--mode", "k8s", "--k8s-secret-namespace", "vault", "--k8s-secret-name", "bank-vaults"]
+      args: [
+        "--mode", "k8s", 
+        "--k8s-secret-namespace", "vault", 
+        "--k8s-secret-name", "bank-vaults"
+      ]
 
       # metrics:
       #   enabled: true
