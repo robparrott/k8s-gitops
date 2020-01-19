@@ -78,10 +78,13 @@ spec:
           envName: MYSQL_ROOT_PASSWORD
 
       # Allows adding various custom eenvironment variables directly.
-      #envs: []
-        # - name: GOOGLE_APPLICATION_CREDENTIALS
-        #   value: /etc/gcp/service-account.json
+      envs: 
+        - name: TEST_ENV
+          value: TEST_VALUE
 
+      customSecrets:
+        - secretName: mysql-vault
+          
 
 
 
