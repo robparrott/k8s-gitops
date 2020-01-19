@@ -39,20 +39,6 @@ spec:
 
   values:
 
-    vaultEnvsConfig:
-      - name: MYSQL_VAULT_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: mysql-vault
-            key: mysql-password
-
-    envsConfig:
-      - name: MYSQL_ROOT_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: mysql-vault
-            key: mysql-root-password
-          
     replicaCount: 2
     strategy:
       type: RollingUpdate
@@ -68,6 +54,21 @@ spec:
       pullPolicy: IfNotPresent
 
     vault:
+
+      vaultEnvsConfig:
+        - name: MYSQL_VAULT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-vault
+              key: mysql-password
+
+      envsConfig:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-vault
+              key: mysql-root-password
+                  
       logLevel: debug      
       config:
         #
@@ -142,8 +143,8 @@ spec:
                   max_ttl: "24h"
           
 
-        envs: [ { }]
-        customSecrets: []
+        # envs: [ { }]
+        # customSecrets: []
   #       envSecrets: 
   #         - secretName: mysql-vault
   #           secretKey: mysql-password
