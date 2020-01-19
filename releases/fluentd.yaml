@@ -28,7 +28,7 @@ spec:
 
     # Enable autoscaling using HorizontalPodAutoscaler
     autoscaling:
-      enabled: true
+      enabled: false
       minReplicas: 0
       maxReplicas: 0
       metrics:
