@@ -8,7 +8,7 @@ metadata:
 spec:
 
   size: 2
-  image: vault:1.2.3
+  image: vault:1.3.1
   bankVaultsImage: banzaicloud/bank-vaults:latest
 
   annotations:
