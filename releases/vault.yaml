@@ -32,6 +32,35 @@ spec:
         #     address: "myconsul-svc-name:8500"
         #     path: "vault"
 
+      logLevel: debug
+
+
+    unsealer:
+      image:
+        repository: banzaicloud/bank-vaults
+        tag: 0.7.0
+        pullPolicy: IfNotPresent
+      args: [
+          "--mode",
+          "k8s",
+          "--k8s-secret-namespace",
+          "vault",
+          "--k8s-secret-name",
+          "bank-vaults"
+      ]
+      metrics:
+        enabled: true
+        debug: true
+        name: metrics
+        type: ClusterIP
+        port: 9091
+        serviceMonitor:
+          enabled: false
+          additionalLabels: {}
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/path: "/metrics"
+          prometheus.io/port: "9091"
 
 # ---
 # apiVersion: vault.banzaicloud.com/v1alpha1
