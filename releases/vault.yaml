@@ -109,12 +109,12 @@ spec:
               version: 2
           
 
-      envs: []
-      customSecrets: []
-      envSecrets: 
-        - secretName: mysql-vault
-          secretKey: mysql-password
-          envName: MYSQL_VAULT_PASSWORD
+        envs: []
+        customSecrets: []
+        envSecrets: 
+          - secretName: mysql-vault
+            secretKey: mysql-password
+            envName: MYSQL_VAULT_PASSWORD
 
     vaultEnvsConfig:
       - name: MYSQL_VAULT_PASSWORD
