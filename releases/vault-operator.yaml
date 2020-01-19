@@ -35,7 +35,7 @@ metadata:
 spec:
   releaseName: vault-operator
   chart:
-    repository: https://kubernetes-charts.banzaicloud.com
+    repository: http://kubernetes-charts.banzaicloud.com/branch/master
     name: vault-operator
     version: 0.2.17
 
@@ -43,8 +43,8 @@ spec:
 
     replicaCount: 1
     
-    etcd-operator:
-      enabled: true
-      etcdOperator:
-        commandArgs:
-          cluster-wide: true
+    # etcd-operator:
+    #   enabled: true
+    #   etcdOperator:
+    #     commandArgs:
+    #       cluster-wide: true
