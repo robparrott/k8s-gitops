@@ -1,55 +1,55 @@
-# apiVersion: v1
-# kind: Namespace
+# # apiVersion: v1
+# # kind: Namespace
+# # metadata:
+# #   name: vault
+# ---
+# apiVersion: operators.coreos.com/v1alpha2
+# kind: OperatorGroup
+# metadata:
+#   name: operatorgroup
+#   namespace: vault
+# spec:
+#   targetNamespaces:
+#   - vault
+
+# ---
+# apiVersion: operators.coreos.com/v1alpha1
+# kind: Subscription
 # metadata:
 #   name: vault
----
-apiVersion: operators.coreos.com/v1alpha2
-kind: OperatorGroup
-metadata:
-  name: operatorgroup
-  namespace: vault
-spec:
-  targetNamespaces:
-  - vault
+#   namespace: vault
+# spec:
+#   channel: beta
+#   name: vault
+#   source: operatorhubio-catalog
+#   sourceNamespace: olm
 
----
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
-metadata:
-  name: vault
-  namespace: vault
-spec:
-  channel: beta
-  name: vault
-  source: operatorhubio-catalog
-  sourceNamespace: olm
+# ---
+# apiVersion: helm.fluxcd.io/v1
+# kind: HelmRelease
+# metadata:
+#   name: vault-operator
+#   namespace: vault
+#   annotations:
+#     fluxcd.io/automated: "true"
+#     fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+# spec:
+#   releaseName: vault-operator
+#   chart:
+#     repository: http://kubernetes-charts.banzaicloud.com/branch/master
+#     name: vault-operator
+#     version: 0.6.3
 
----
-apiVersion: helm.fluxcd.io/v1
-kind: HelmRelease
-metadata:
-  name: vault-operator
-  namespace: vault
-  annotations:
-    fluxcd.io/automated: "true"
-    fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
-spec:
-  releaseName: vault-operator
-  chart:
-    repository: http://kubernetes-charts.banzaicloud.com/branch/master
-    name: vault-operator
-    version: 0.6.3
+#   values:
 
-  values:
+#     replicaCount: 1
 
-    replicaCount: 1
-
-    etcd-operator:
-      enabled: true
-      etcdOperator:
-        commandArgs:
-          cluster-wide: true
-          create-crd: false
+#     etcd-operator:
+#       enabled: true
+#       etcdOperator:
+#         commandArgs:
+#           cluster-wide: true
+#           create-crd: false
 
 
 
