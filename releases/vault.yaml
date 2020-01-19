@@ -36,22 +36,23 @@ spec:
     name: vault
     version: 0.10.0
 
-  vaultEnvsConfig:
-    - name: MYSQL_VAULT_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: mysql-vault
-          key: mysql-password
-
-  envsConfig:
-    - name: MYSQL_ROOT_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: mysql-vault
-          key: mysql-root-password
 
   values:
 
+    vaultEnvsConfig:
+      - name: MYSQL_VAULT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mysql-vault
+            key: mysql-password
+
+    envsConfig:
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mysql-vault
+            key: mysql-root-password
+          
     replicaCount: 2
     strategy:
       type: RollingUpdate
