@@ -41,7 +41,7 @@ spec:
 
   values:
 
-    replicaCount: 3
+    replicaCount: 1
 
     # etcd-operator:
     #   enabled: true
