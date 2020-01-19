@@ -44,4 +44,12 @@ spec:
 
     replicaCount: 1
 
+    etcd-operator:
+      enabled: true
+      etcdOperator:
+        commandArgs:
+          cluster-wide: true
+          create-crd: false
+
+
 
