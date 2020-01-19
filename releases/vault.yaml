@@ -5,20 +5,25 @@ metadata:
   name: vault
   namespace: vault
 spec:
-  size: 1
-  image: 'vault:1.0.0'
+
+  size: 2
+  image: 'vault:1.2.3'
   bankVaultsImage: 'banzaicloud/bank-vaults:latest'
+
   annotations:
     prometheus.io/scrape: 'true'
     prometheus.io/port: '9102'
+
   serviceAccount: vault
   serviceType: ClusterIP
   ingress:
     annotations: null
     spec: {}
+
   unsealConfig:
     kubernetes:
       secretNamespace: default
+
   config:
     storage:
       file:
