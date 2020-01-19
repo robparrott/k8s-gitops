@@ -111,17 +111,17 @@ spec:
 
       envs: []
       customSecrets: []
-      # envSecrets: 
-      #   - secretName: mysql-vault
-      #     secretKey: mysql-password
-      #     envName: MYSQL_VAULT_PASSWORD
+      envSecrets: 
+        - secretName: mysql-vault
+          secretKey: mysql-password
+          envName: MYSQL_VAULT_PASSWORD
 
-    vaultEnvsConfig:
-      - name: MYSQL_VAULT_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: mysql-vault
-            key: mysql-password
+    # vaultEnvsConfig:
+    #   - name: MYSQL_VAULT_PASSWORD
+    #     valueFrom:
+    #       secretKeyRef:
+    #         name: mysql-vault
+    #         key: mysql-password
 
     unsealer:
       image:
