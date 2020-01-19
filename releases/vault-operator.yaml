@@ -22,3 +22,29 @@
 #   name: vault
 #   source: operatorhubio-catalog
 #   sourceNamespace: olm
+
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: vault-operator
+  namespace: vault
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+spec:
+  releaseName: vault-operator
+  chart:
+    repository: https://kubernetes-charts.banzaicloud.com
+    name: vault-operator
+    version: 0.2.17
+
+  values:
+
+    replicaCount: 1
+    
+    etcd-operator:
+      enabled: true
+      etcdOperator:
+        commandArgs:
+          cluster-wide: true
