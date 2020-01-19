@@ -2,7 +2,7 @@
 apiVersion: vault.banzaicloud.com/v1alpha1
 kind: Vault
 metadata:
-  name: vault
+  name: vault-server
   namespace: vault
 
 spec:
