@@ -1,155 +1,155 @@
-# ---
-# apiVersion: vault.banzaicloud.com/v1alpha1
-# kind: Vault
-# metadata:
-#   name: vault-mysql
-#   namespace: vault
+---
+apiVersion: vault.banzaicloud.com/v1alpha1
+kind: Vault
+metadata:
+  name: vault-mysql
+  namespace: vault
 
-# spec:
+spec:
 
-#   size: 2
-#   image: vault:1.2.3
-#   bankVaultsImage: banzaicloud/bank-vaults:latest
+  size: 2
+  image: vault:1.2.3
+  bankVaultsImage: banzaicloud/bank-vaults:latest
 
-#   annotations:
-#     prometheus.io/scrape: 'true'
-#     prometheus.io/port: '9102'
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '9102'
 
-#   # Specify the ServiceAccount where the Vault Pod and the Bank-Vaults configurer/unsealer is running
-#   serviceAccount: vault
+  # Specify the ServiceAccount where the Vault Pod and the Bank-Vaults configurer/unsealer is running
+  serviceAccount: vault
 
-#   # Unsealing will be done via Kubernetes Secrets if not defined otherwise (not highly secure, but this is just an example)
+  # Unsealing will be done via Kubernetes Secrets if not defined otherwise (not highly secure, but this is just an example)
 
-#   # NOTE: you will need a MySQL instance, grab one with:
-#   # helm upgrade --install mysql stable/mysql --set mysqlRootPassword=your-root-password --set mysqlDatabase=vault --set mysqlUser=vault --set mysqlPassword=secret
+  # NOTE: you will need a MySQL instance, grab one with:
+  # helm upgrade --install mysql stable/mysql --set mysqlRootPassword=your-root-password --set mysqlDatabase=vault --set mysqlUser=vault --set mysqlPassword=secret
 
-#   # A YAML representation of a final vault config file, this config represents
-#   # a HA config with MySQL.
-#   # See https://www.vaultproject.io/docs/configuration/ for more information.
-#   config:
-#     storage:
+  # A YAML representation of a final vault config file, this config represents
+  # a HA config with MySQL.
+  # See https://www.vaultproject.io/docs/configuration/ for more information.
+  config:
+    storage:
 
-#       mysql:
-#         address: "mysql-vault.vault.svc.cluster.local:3306"
-#         username: vault
-#         password: "${ .Env.MYSQL_VAULT_PASSWORD }"
-#         ha_enabled: "true"
+      mysql:
+        address: "mysql-vault.vault.svc.cluster.local:3306"
+        username: vault
+        password: "${ .Env.MYSQL_VAULT_PASSWORD }"
+        ha_enabled: "true"
 
-#       # etcd:
-#       #   address: https://etcd-cluster:2379
-#       #   ha_enabled: "true"
-#       #   # NOTE: specifiying the etcd API version is strongly encouraged,
-#       #   # since etcd version 3.4 doesn't offer v2 version by default anymore.
-#       #   # https://github.com/etcd-io/etcd/blob/master/Documentation/upgrades/upgrade_3_4.md
-#       #   etcd_api: "v3"
+      # etcd:
+      #   address: https://etcd-cluster:2379
+      #   ha_enabled: "true"
+      #   # NOTE: specifiying the etcd API version is strongly encouraged,
+      #   # since etcd version 3.4 doesn't offer v2 version by default anymore.
+      #   # https://github.com/etcd-io/etcd/blob/master/Documentation/upgrades/upgrade_3_4.md
+      #   etcd_api: "v3"
 
-#     listener:
-#       tcp:
-#         address: "0.0.0.0:8200"
-#         tls_cert_file: /vault/tls/server.crt
-#         tls_key_file: /vault/tls/server.key
-#     api_addr: https://vault.default:8200
-#     telemetry:
-#       statsd_address: localhost:9125
-#     ui: true
+    listener:
+      tcp:
+        address: "0.0.0.0:8200"
+        tls_cert_file: /vault/tls/server.crt
+        tls_key_file: /vault/tls/server.key
+    api_addr: https://vault.default:8200
+    telemetry:
+      statsd_address: localhost:9125
+    ui: true
 
 
 
-#   # See: https://github.com/banzaicloud/bank-vaults#example-external-vault-configuration for more details.
-#   externalConfig:
-#     policies:
-#       - name: allow_secrets
-#         rules: path "secret/*" {
-#           capabilities = ["create", "read", "update", "delete", "list"]
-#           }
-#     auth:
-#       - type: kubernetes
-#         roles:
-#           # Allow every pod in the default namespace to use the secret kv store
-#           - name: default
-#             bound_service_account_names: default
-#             bound_service_account_namespaces: default
+  # See: https://github.com/banzaicloud/bank-vaults#example-external-vault-configuration for more details.
+  externalConfig:
+    policies:
+      - name: allow_secrets
+        rules: path "secret/*" {
+          capabilities = ["create", "read", "update", "delete", "list"]
+          }
+    auth:
+      - type: kubernetes
+        roles:
+          # Allow every pod in the default namespace to use the secret kv store
+          - name: default
+            bound_service_account_names: default
+            bound_service_account_namespaces: default
 
-#             # bound_service_account_names: ["default", "vault-secrets-webhook"]
-#             # bound_service_account_namespaces: ["default", "vswh"]
+            # bound_service_account_names: ["default", "vault-secrets-webhook"]
+            # bound_service_account_namespaces: ["default", "vswh"]
 
-#             policies: allow_secrets
-#             ttl: 1h
-#     secrets:
+            policies: allow_secrets
+            ttl: 1h
+    secrets:
 
-#       - path: secret
-#         type: kv
-#         description: General secrets.
-#         options:
-#           version: 2
+      - path: secret
+        type: kv
+        description: General secrets.
+        options:
+          version: 2
                
-#       - type: database
-#         description: MySQL Database secret engine.
-#         configuration:
-#           config:
-#             - name: my-mysql
-#               plugin_name: "mysql-database-plugin"
-#               connection_url: "{{username}}:{{password}}@tcp(mysql:3306)/"
-#               allowed_roles: [app]
-#               username: "root"
-#               password: "${env `MYSQL_ROOT_PASSWORD`}" # Example how to read environment variables, with the env function
-#               rotate: true # Ask bank-vaults to ask Vault to rotate the root credentials of MySQL
-#           roles:
-#             - name: app
-#               db_name: app-db
-#               creation_statements: "CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}'; GRANT ALL ON `app\_%`.* TO '{{name}}'@'%';"
-#               default_ttl: "10m"
-#               max_ttl: "24h"
+      - type: database
+        description: MySQL Database secret engine.
+        configuration:
+          config:
+            - name: my-mysql
+              plugin_name: "mysql-database-plugin"
+              connection_url: "{{username}}:{{password}}@tcp(mysql:3306)/"
+              allowed_roles: [app]
+              username: "root"
+              password: "${env `MYSQL_ROOT_PASSWORD`}" # Example how to read environment variables, with the env function
+              rotate: true # Ask bank-vaults to ask Vault to rotate the root credentials of MySQL
+          roles:
+            - name: app
+              db_name: app-db
+              creation_statements: "CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}'; GRANT ALL ON `app\_%`.* TO '{{name}}'@'%';"
+              default_ttl: "10m"
+              max_ttl: "24h"
 
-#     # Allows writing some secrets to Vault (useful for development purposes).
-#     # See https://www.vaultproject.io/docs/secrets/kv/index.html for more information.
-#     startupSecrets: []
-#       # - type: kv
-#       #   path: secret/data/accounts/aws
-#       #   data:
-#       #     data:
-#       #       AWS_ACCESS_KEY_ID: secretId
-#       #       AWS_SECRET_ACCESS_KEY: s3cr3t
-#       # - type: kv
-#       #   path: secret/data/dockerrepo
-#       #   data:
-#       #     data:
-#       #       DOCKER_REPO_USER: dockerrepouser
-#       #       DOCKER_REPO_PASSWORD: dockerrepopassword
-#       # - type: kv
-#       #   path: secret/data/mysql
-#       #   data:
-#       #     data:
-#       #       MYSQL_ROOT_PASSWORD: s3cr3t
-#       #       MYSQL_PASSWORD: 3xtr3ms3cr3t
+    # Allows writing some secrets to Vault (useful for development purposes).
+    # See https://www.vaultproject.io/docs/secrets/kv/index.html for more information.
+    startupSecrets: []
+      # - type: kv
+      #   path: secret/data/accounts/aws
+      #   data:
+      #     data:
+      #       AWS_ACCESS_KEY_ID: secretId
+      #       AWS_SECRET_ACCESS_KEY: s3cr3t
+      # - type: kv
+      #   path: secret/data/dockerrepo
+      #   data:
+      #     data:
+      #       DOCKER_REPO_USER: dockerrepouser
+      #       DOCKER_REPO_PASSWORD: dockerrepopassword
+      # - type: kv
+      #   path: secret/data/mysql
+      #   data:
+      #     data:
+      #       MYSQL_ROOT_PASSWORD: s3cr3t
+      #       MYSQL_PASSWORD: 3xtr3ms3cr3t
 
-#   #
-#   # Load MySQL password from k8s secret
-#   #
-#   vaultEnvsConfig:
-#     - name: MYSQL_VAULT_PASSWORD
-#       valueFrom:
-#         secretKeyRef:
-#           name: mysql-vault
-#           key: mysql-password
+  #
+  # Load MySQL password from k8s secret
+  #
+  vaultEnvsConfig:
+    - name: MYSQL_VAULT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mysql-vault
+          key: mysql-password
 
-#   envsConfig:
-#     - name: MYSQL_ROOT_PASSWORD
-#       valueFrom:
-#         secretKeyRef:
-#           name: mysql-vault
-#           key: mysql-root-password
+  envsConfig:
+    - name: MYSQL_ROOT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mysql-vault
+          key: mysql-root-password
 
 
-#   # Support for distributing the generated CA certificate Secret to other namespaces.
-#   # Define a list of namespaces or use ["*"] for all namespaces.
-#   caNamespaces:
-#     - "*"
+  # Support for distributing the generated CA certificate Secret to other namespaces.
+  # Define a list of namespaces or use ["*"] for all namespaces.
+  caNamespaces:
+    - "*"
 
-#   # Describe where you would like to store the Vault unseal keys and root token.
-#   unsealConfig:
-#     kubernetes:
-#       secretNamespace: vault
+  # Describe where you would like to store the Vault unseal keys and root token.
+  unsealConfig:
+    kubernetes:
+      secretNamespace: vault
 
 
 
