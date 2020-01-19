@@ -60,7 +60,7 @@ spec:
       # secret. The two fields required are a secretName indicating the name of
       # the Kuberentes secret (created outside of this chart), and the mountPath
       # at which it should be mounted in the Vault container.
-      customSecrets: []
+      #customSecrets: []
         # - secretName: vault-tls
         #   mountPath: /vault/tls
 
@@ -78,7 +78,7 @@ spec:
           envName: MYSQL_ROOT_PASSWORD
 
       # Allows adding various custom eenvironment variables directly.
-      envs: []
+      #envs: []
         # - name: GOOGLE_APPLICATION_CREDENTIALS
         #   value: /etc/gcp/service-account.json
 
@@ -100,6 +100,8 @@ spec:
       #         key: mysql-root-password
 
       externalConfig:
+        #
+        # Written to /vault/config/vault-config.yaml
         #
         # Allows creating policies in Vault which can be used later on in roles
         # for the Kubernetes based authentication.
@@ -152,6 +154,9 @@ spec:
       logLevel: debug    
 
       config:
+        #
+        # Written to /vault/config/config.json
+        #        
         #
         # A YAML representation of a final vault config.json file.
         # See https://www.vaultproject.io/docs/configuration/ for more information.
