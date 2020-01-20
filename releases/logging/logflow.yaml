@@ -5,7 +5,7 @@ metadata:
   name: elasticsearch-logging-output
   namespace: logging
 spec:
-  targetNamespace: logging
+  # targetNamespace: logging
   elasticsearch:
     host: logs-db-es-http.logging.svc.cluster.local
     port: 9200
@@ -30,7 +30,7 @@ metadata:
   name: elasticsearch-logging-flow
   namespace: logging
 spec:
-  targetNamespace: logging
+  # targetNamespace: logging
   filters:
     - tag_normaliser: {}
     - parser:
