@@ -1671,11 +1671,11 @@ subjects:
   name: elastic-operator
   namespace: elastic-system
 
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: elastic-system
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: elastic-system
 
 ---
 apiVersion: apps/v1
