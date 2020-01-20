@@ -70,7 +70,7 @@ spec:
 
     # Enable secure connection between fluentd and fluent-bit
     tls:
-      enabled: true
+      enabled: false
       # Shared key for fluentd authentication
       sharedKey: ""
       fluentbitSecretName: ""
@@ -89,7 +89,7 @@ spec:
   targetNamespace: logging
   elasticsearch:
     host: elasticsearch-master.logging.svc.cluster.local
-    port: 9300
+    port: 9200
     scheme: http
 
     # ssl_verify: false
