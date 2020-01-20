@@ -16,28 +16,39 @@ spec:
     version: 2.7.2
 
   values:
-    # Default values for logging-operator-logging.
-    # This is a YAML-formatted file.
-    # Declare variables to be passed into your templates.
-
-    # Reference name of the logging deployment
-    loggingRef: ""
-    # Disable configuration check before deploy
-    flowConfigCheckDisabled: false
-    # Use static configuration instead of generated config.
-    flowConfigOverride: ""
-
-    nameOverride: ""
-    fullnameOverride: ""
-
-    # If an immutable field is changed, delete the existing resource
-    # and recreate it with the new configuration.
-    enableRecreateWorkloadOnImmutableFieldChange: false
 
     # Fluent-bit configurations
     fluentbit: {}
+    
     # Fluentd configurations
     fluentd: {}
+
+    # Limit namespaces from where to read Flow and Output specs
+    watchNamespaces: []
+
+    # Control namespace that contains ClusterOutput and ClusterFlow resources
+    controlNamespace: "logging"
+
+
+    # # Default values for logging-operator-logging.
+    # # This is a YAML-formatted file.
+    # # Declare variables to be passed into your templates.
+
+    # # Reference name of the logging deployment
+    # loggingRef: ""
+    # # Disable configuration check before deploy
+    # flowConfigCheckDisabled: false
+    # # Use static configuration instead of generated config.
+    # flowConfigOverride: ""
+
+    # nameOverride: ""
+    # fullnameOverride: ""
+
+    # # If an immutable field is changed, delete the existing resource
+    # # and recreate it with the new configuration.
+    # enableRecreateWorkloadOnImmutableFieldChange: false
+
+
     # Send internal fluentd logs to stdout instead of circulating it internally without kubernetes labels. Use null to omit these logs.
     #  fluentLogDestination: stdout
     #  fluentdPvcSpec:
@@ -65,10 +76,6 @@ spec:
       fluentbitSecretName: ""
       fluentdSecretName: ""
 
-    # Limit namespaces from where to read Flow and Output specs
-    watchNamespaces: []
-    # Control namespace that contains ClusterOutput and ClusterFlow resources
-    controlNamespace: ""
 
 
 
