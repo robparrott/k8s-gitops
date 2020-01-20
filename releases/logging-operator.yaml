@@ -131,7 +131,7 @@ kind: Deployment
 metadata:
  name: log-generator
 spec:
-  targetNamespace: logging
+  targetNamespace: default
   selector:
     matchLabels:
       app.kubernetes.io/name: log-generator
