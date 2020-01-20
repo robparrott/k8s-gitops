@@ -2,14 +2,14 @@ apiVersion: elasticsearch.k8s.elastic.co/v1beta1
 kind: Elasticsearch
 metadata:
   name: quickstart-es
-  namespace: logging
+#  namespace: logging
 spec:
-  targetNamespace: logging
+#  targetNamespace: logging
 
-  version: 7.5.0
+  version: 7.5.1
   nodeSets:
   - name: default
-    count: 3
+    count: 1
     config:
       node.master: true
       node.data: true
