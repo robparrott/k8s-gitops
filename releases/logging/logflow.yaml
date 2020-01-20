@@ -49,18 +49,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: log-generator
-  namespace: logging
+  namespace: default
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: log-generator
   replicas: 1
   template:
-   metadata:
-     labels:   
-       app.kubernetes.io/name: log-generator
-   spec:
-    containers:
-      - name: nginx
-        image: banzaicloud/log-generator:0.3.2
+    metadata:
+      labels:
+        app.kubernetes.io/name: log-generator
+    spec:
+      containers:
+        - name: nginx
+          image: banzaicloud/log-generator:0.3.2
 
