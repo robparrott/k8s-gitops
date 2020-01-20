@@ -1,6 +1,3 @@
-helm install --namespace logging --name logging-demo banzaicloud-stable/logging-demo \
-  --set "elasticsearch.enabled=True"
-
 
 ---
 apiVersion: helm.fluxcd.io/v1
