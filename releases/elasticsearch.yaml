@@ -1,25 +1,34 @@
----
-apiVersion: helm.fluxcd.io/v1
-kind: HelmRelease
-metadata:
-  name: elasticsearch
-  namespace: logging
-  annotations:
-    fluxcd.io/automated: "true"
-    fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
-spec:
-  releaseName: elasticsearch
-  chart:
-    repository: https://helm.elastic.co
-    name: elasticsearch
-    version: 7.5.1
+# ---
+# apiVersion: helm.fluxcd.io/v1
+# kind: HelmRelease
+# metadata:
+#   name: elasticsearch
+#   namespace: logging
+#   annotations:
+#     fluxcd.io/automated: "true"
+#     fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+# spec:
+#   releaseName: elasticsearch
+#   chart:
+#     repository: https://helm.elastic.co
+#     name: elasticsearch
+#     version: 7.5.1
 
 
-  # chart:
-  #   git: https://github.com/elastic/helm-charts.git
-  #   ref: master
-  #   path: ./helm-charts/elasticsearch
+#   # chart:
+#   #   git: https://github.com/elastic/helm-charts.git
+#   #   ref: master
+#   #   path: ./helm-charts/elasticsearch
 
-  values:
+#   values:
 
-    clusterName: elasticsearch
+#     clusterName: elasticsearch
+
+#     service:
+#       labels: {}
+#       labelsHeadless: {}
+#       type: ClusterIP
+#       nodePort: ""
+#       annotations: {}
+#       httpPortName: http
+#       transportPortName: transport
