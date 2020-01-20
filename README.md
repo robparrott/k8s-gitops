@@ -78,5 +78,38 @@ echo $TOKEN
 
 ```
 
+# Tailing Logs 
+
+You can get the `kail` tool to selectively tail logs from pods locally:
+
+* https://github.com/boz/kail
+
+# Forwarding Services:
+
+Vault:
+
+```
+kubectl port-forward service/vault-server -n vault 8200 
+```
+
+Kubernetes Dashboard:
+
+```
+kubectl port-forward service/kube-dashboard-kubernetes-dashboard -n kube-system 8443:443 
+```
+
+Kibana:
+
+```
+kubectl port-forward service/kibana-kibana -n logging 5601
+```
+
+MySQL:
+
+```
+kubectl port-forward service/mysql-vault-integration-demo 3306 
+```
+
+
 
 
