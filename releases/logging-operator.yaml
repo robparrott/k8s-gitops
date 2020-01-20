@@ -80,6 +80,7 @@ apiVersion: logging.banzaicloud.io/v1beta1
 kind: Output
 metadata:
   name: elasticsearch-logging-output
+  namespace: logging
 spec:
   elasticsearch:
     host: elasticsearch-master.logging.svc.cluster.local
@@ -97,4 +98,42 @@ spec:
       timekey: 1m
       timekey_wait: 30s
       timekey_use_utc: true
+
+---
+apiVersion: logging.banzaicloud.io/v1beta1
+kind: Flow
+metadata:
+  name: elasticsearch-logging-flow
+  namespace: logging
+spec:
+  filters:
+    - tag_normaliser: {}
+    - parser:
+        remove_key_name_field: true
+        reserve_data: true
+        parse:
+          type: nginx
+  selectors:
+    app.kubernetes.io/name: log-generator
+  outputRefs:
+    - elasticsearch-logging-output
+
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+ name: log-generator
+spec:
+ selector:
+   matchLabels:
+     app.kubernetes.io/name: log-generator
+ replicas: 1
+ template:
+   metadata:
+     labels:   
+       app.kubernetes.io/name: log-generator
+   spec:
+     containers:
+     - name: nginx
+       image: banzaicloud/log-generator:0.3.2
 
