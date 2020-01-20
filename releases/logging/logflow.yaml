@@ -48,9 +48,9 @@ spec:
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
- name: log-generator
+  name: log-generator
+  namespace: logging
 spec:
-  targetNamespace: default
   selector:
     matchLabels:
       app.kubernetes.io/name: log-generator
