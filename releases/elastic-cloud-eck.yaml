@@ -1,84 +1,84 @@
-# apiVersion: operators.coreos.com/v1alpha1
-# kind: Subscription
-# metadata:
-#   name: elastic-cloud-eck
-#   namespace: operators
-# spec:
-#   channel: stable
-#   name: elastic-cloud-eck
-#   source: operatorhubio-catalog
-#   sourceNamespace: olm
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: elastic-cloud-eck
+  namespace: operators
+spec:
+  channel: stable
+  name: elastic-cloud-eck
+  source: operatorhubio-catalog
+  sourceNamespace: olm
 
-# ---
+---
 
-# apiVersion: elasticsearch.k8s.elastic.co/v1
-# kind: Elasticsearch
-# metadata:
-#   name: elasticsearch-sample
-# spec:
-#   version: 7.5.1
-#   nodeSets:
-#     - name: default
-#       config:
-#         node.master: true
-#         node.data: true
-#         node.attr.attr_name: attr_value
-#         node.store.allow_mmap: false
-#       podTemplate:
-#         metadata:
-#           labels:
-#             foo: bar
-#         spec:
-#           containers:
-#             - name: elasticsearch
-#               resources:
-#                 requests:
-#                   memory: 4Gi
-#                   cpu: 1
-#                 limits:
-#                   memory: 4Gi
-#                   cpu: 2
-#       count: 3
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: elasticsearch-sample
+spec:
+  version: 7.5.1
+  nodeSets:
+    - name: default
+      config:
+        node.master: true
+        node.data: true
+        node.attr.attr_name: attr_value
+        node.store.allow_mmap: false
+      podTemplate:
+        metadata:
+          labels:
+            foo: bar
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                requests:
+                  memory: 4Gi
+                  cpu: 1
+                limits:
+                  memory: 4Gi
+                  cpu: 2
+      count: 3
 
-# ---
+---
 
-# apiVersion: kibana.k8s.elastic.co/v1
-# kind: Kibana
-# metadata:
-#   name: kibana-sample
-# spec:
-#   version: 7.5.1
-#   count: 1
-#   elasticsearchRef:
-#     name: elasticsearch-sample
-#   podTemplate:
-#     metadata:
-#       labels:
-#         foo: bar
-#     spec:
-#       containers:
-#         - name: kibana
-#           resources:
-#             requests:
-#               memory: 1Gi
-#               cpu: 0.5
-#             limits:
-#               memory: 2Gi
-#               cpu: 2
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana-sample
+spec:
+  version: 7.5.1
+  count: 1
+  elasticsearchRef:
+    name: elasticsearch-sample
+  podTemplate:
+    metadata:
+      labels:
+        foo: bar
+    spec:
+      containers:
+        - name: kibana
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 0.5
+            limits:
+              memory: 2Gi
+              cpu: 2
 
-# ---
+---
 
-# apiVersion: apm.k8s.elastic.co/v1
-# kind: ApmServer
-# metadata:
-#   labels:
-#     controller-tools.k8s.io: '1.0'
-#   name: apmserver-sample
-# spec:
-#   version: 7.5.1
-#   count: 1
-#   elasticsearchRef:
-#     name: elasticsearch-sample
+apiVersion: apm.k8s.elastic.co/v1
+kind: ApmServer
+metadata:
+  labels:
+    controller-tools.k8s.io: '1.0'
+  name: apmserver-sample
+spec:
+  version: 7.5.1
+  count: 1
+  elasticsearchRef:
+    name: elasticsearch-sample
 
 
  
