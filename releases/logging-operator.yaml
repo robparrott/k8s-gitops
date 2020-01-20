@@ -1,0 +1,74 @@
+helm install --namespace logging --name logging-demo banzaicloud-stable/logging-demo \
+  --set "elasticsearch.enabled=True"
+
+
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: logging-operator
+  namespace: logging
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+spec:
+  releaseName: logging-operator
+  chart:
+    repository: http://kubernetes-charts.banzaicloud.com/branch/master
+    name: logging-operator
+    version: 2.7.2
+
+  values:
+    # Default values for logging-operator-logging.
+    # This is a YAML-formatted file.
+    # Declare variables to be passed into your templates.
+
+    # Reference name of the logging deployment
+    loggingRef: ""
+    # Disable configuration check before deploy
+    flowConfigCheckDisabled: false
+    # Use static configuration instead of generated config.
+    flowConfigOverride: ""
+
+    nameOverride: ""
+    fullnameOverride: ""
+
+    # If an immutable field is changed, delete the existing resource
+    # and recreate it with the new configuration.
+    enableRecreateWorkloadOnImmutableFieldChange: false
+
+    # Fluent-bit configurations
+    fluentbit: {}
+    # Fluentd configurations
+    fluentd: {}
+    # Send internal fluentd logs to stdout instead of circulating it internally without kubernetes labels. Use null to omit these logs.
+    #  fluentLogDestination: stdout
+    #  fluentdPvcSpec:
+    #    accessModes:
+    #      - ReadWriteOnce
+    #    resources:
+    #      requests:
+    #        storage: 40Gi
+    #    storageClassName: fast
+    # If specified, the pod's tolerations.
+    # ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+    #     tolerations:
+    #      - key: "node-role.kubernetes.io/master"
+    #        operator: "Equal"
+    #        effect: "NoSchedule"
+    #      - key: "node.kubernetes.io/unschedulable"
+    #        operator: "Equal"
+    #        effect: "NoSchedule"
+
+    # Enable secure connection between fluentd and fluent-bit
+    tls:
+      enabled: true
+      # Shared key for fluentd authentication
+      sharedKey: ""
+      fluentbitSecretName: ""
+      fluentdSecretName: ""
+
+    # Limit namespaces from where to read Flow and Output specs
+    watchNamespaces: []
+    # Control namespace that contains ClusterOutput and ClusterFlow resources
+    controlNamespace: ""
