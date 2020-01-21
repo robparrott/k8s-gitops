@@ -1,3 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    name: guestbook
+  name: guestbook
+
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
