@@ -1,0 +1,53 @@
+---
+apiVersion: elasticsearch.k8s.elastic.co/v1beta1
+kind: Elasticsearch
+metadata:
+  name: logs-db
+  namespace: logging
+spec:
+  targetNamespace: logging
+
+  version: 7.5.1 #7.5.0
+  nodeSets:
+  - name: default
+    count: 3
+    config:
+      node.master: true
+      node.data: true
+      node.ingest: true
+      node.store.allow_mmap: false
+
+# ---
+# apiVersion: helm.fluxcd.io/v1
+# kind: HelmRelease
+# metadata:
+#   name: elasticsearch
+#   namespace: logging
+#   annotations:
+#     fluxcd.io/automated: "true"
+#     fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
+# spec:
+#   releaseName: elasticsearch
+#   chart:
+#     repository: https://helm.elastic.co
+#     name: elasticsearch
+#     version: 7.5.1
+
+
+#   # chart:
+#   #   git: https://github.com/elastic/helm-charts.git
+#   #   ref: master
+#   #   path: ./helm-charts/elasticsearch
+
+#   values:
+
+#     clusterName: elasticsearch
+
+#     service:
+#       labels: {}
+#       labelsHeadless: {}
+#       type: ClusterIP
+#       nodePort: ""
+#       annotations: {}
+#       httpPortName: http
+#       transportPortName: transport
