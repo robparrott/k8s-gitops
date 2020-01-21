@@ -16,5 +16,6 @@ bases:
 #- overlays/argocd-cm.yaml
 
 resources:
-- guestbook.yaml
+- app-manifests.yaml
+
 
