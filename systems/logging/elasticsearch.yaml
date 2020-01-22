@@ -1,21 +1,21 @@
-# ---
-# apiVersion: elasticsearch.k8s.elastic.co/v1beta1
-# kind: Elasticsearch
-# metadata:
-#   name: logs-db
-#   namespace: logging
-# spec:
-#   targetNamespace: logging
+---
+apiVersion: elasticsearch.k8s.elastic.co/v1beta1
+kind: Elasticsearch
+metadata:
+  name: logs-db
+  namespace: logging
+spec:
+  targetNamespace: logging
 
-#   version: 7.5.1 #7.5.0
-#   nodeSets:
-#   - name: default
-#     count: 3
-#     config:
-#       node.master: true
-#       node.data: true
-#       node.ingest: true
-#       node.store.allow_mmap: false
+  version: 7.5.1 #7.5.0
+  nodeSets:
+  - name: default
+    count: 3
+    config:
+      node.master: true
+      node.data: true
+      node.ingest: true
+      node.store.allow_mmap: false
 
 # # ---
 # # apiVersion: helm.fluxcd.io/v1
