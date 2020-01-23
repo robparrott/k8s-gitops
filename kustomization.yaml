@@ -15,15 +15,5 @@ resources:
   # - systems/elastic-operator/application.yaml   
   # - systems/vault-operator/application.yaml
 
-# #- vault.yaml
-
-
-# - logging-operator.yaml
-# - logging.yaml
-
-
-
-# #- guestbook.yaml
-
-
+  # - systems/pulsar/application.yaml
 
