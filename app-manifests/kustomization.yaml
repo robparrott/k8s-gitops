@@ -2,13 +2,16 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: argocd
 
+#
+# Ordered list of application manifests to install
+#
 resources:
 - ./admin-access.yaml
 - ./olm.yaml
 - ../systems/prometheus-operator/application.yaml
 - ../systems/kubernetes-dashboard.yaml 
 - ./service-mesh.yaml
-# - kubernetes-dashboard.yaml
+
 # - prometheus-operator.yaml
 # #- vault-operator.yaml
 # - logging-operator.yaml
