@@ -1,20 +1,31 @@
-# ---
-# apiVersion: helm.fluxcd.io/v1
-# kind: HelmRelease
-# metadata:
-#   name: mysql-vault
-#   namespace: vault
-#   annotations:
-#     fluxcd.io/automated: "true"
-#     fluxcd.io/tag.chart-image: glob:3.1.1-debian-9-*
-# spec:
-#   releaseName: mysql-vault
-#   targetNamespace: vault
-#   chart:
-#     repository: https://kubernetes-charts.storage.googleapis.com/
-#     name: mysql
-#     version: 1.6.2
 
-#   values:
-#     mysqlUser: vault
-#     mysqlDatabase: vault
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mysql-vault
+  namespace: argocd
+
+spec:
+  project: default
+  source:
+    repoURL: 'https://kubernetes-charts.storage.googleapis.com/'
+    targetRevision:  1.6.2
+    chart: mysql
+
+    helm:
+      values: |
+
+        mysqlUser: vault
+        mysqlDatabase: vault
+
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: vault
+
+  # Sync policy
+  syncPolicy:
+    automated:
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+
