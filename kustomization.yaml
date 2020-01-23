@@ -6,8 +6,8 @@ namespace: argocd
 # Ordered list of application manifests to install
 #
 resources:
-  - system/admin-access/application.yaml
-  # - system/olm/application.yaml
+  - systems/admin-access/application.yaml
+  # - systems/olm/application.yaml
   # - systems/prometheus-operator/application.yaml
   # - systems/kubernetes-dashboard.yaml 
   # - app-manifests/service-mesh.yaml
