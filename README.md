@@ -1,73 +1,48 @@
-# NEEDS REWORK
+# Overview 
 
-# Prerequisites
+This repository and it's companion https://github.com/robparrott/gitops-example provide an example of establihsing a GitOps pattern in Kubernetes (http://k8s.io/) using ArgoCD (https://argocd.io/).
 
-Suitable rights to create resources
-access token
+This particular repository provides a declarative set of system and applciation configurations that can be included and assembled to configure and deploy applications to a kubernetes cluster. before jumping in here refer to the companion repository https://github.com/robparrott/gitops-example for any setup.
 
-# Create EKS Cluster
-```
-eksctl create cluster -f eksctl-cluster.yaml
-```
+# Layout
 
-# Enable GitOps
+For reference on configuraiton ArgoCD declaratively, see the docs at:
 
-Integrate with FluxCD (https://fluxcd.io/)
+* https://argoproj.github.io/argo-cd/operator-manual/declarative-setup/
 
-Setup gitops repo 
+This entire repository can be referenced as the source of an application from Argo CD by pointing to the base of the repository in ArgoCD. This sources the root `kustomize.yaml` which then includes a set of `Application` definitions from various component or application directories, which are written to the `argocd` namespace. This set of "Application" CRD's is what constitutes that "wrapper" application. *Note*: this is a stylistic choice for convenience and not a required layout topology.
+
+Each of the individual Application's are defined in `application.yaml` files (my convention here). An example for a very simple Applciation that enables basic admin access to kubernetes look like this:
 
 ```
-touch README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin git@github.com:robparrott/k8s-gitops.git
-git push -u origin master
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: admin-access
+  namespace: argocd 
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/robparrott/k8s-gitops.git
+    targetRevision: HEAD
+    path: systems/admin-access
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
 ```
 
-Enable ssh auth
+See this ( https://argoproj.github.io/argo-cd/operator-manual/application.yaml ) full the full set of options for this CRD definition.
 
-```
-ssh-keygen -f ~/.ssh/gitops-k8s
-cat ~/.ssh/gitops-k8s.pub 
+By using a `kustomize.yaml` file we can add or remove these "sub" applciations at will. This allows us to conveniently define a related set of Applciations within asingle repository. We could also have made each Application a separate repository, and managed the set of deployed Applications in the other repository.
 
-```
+We can also ... in the companion repository ... add other remote setups in other repositories. This defines a convenient model for allowing mutiple teams to collaborate; in this repository we can manage sub-systems of the installation such as operators, monitoring and logging, and then allow app teams to define using GitOps their own layouts. This also allows different feature vbranches to be defined and deployed to different environments as desired by siply tweawking the configuraiton of the Applciation in ArgoCD, since the revision is part of the Application definition.
 
-Add that key as a deploy key in GitHub or wherever.
+The particular topology is defined within the repositories themselves, and should be driven by organizational needs. The best practice constraint is that such a topology definition should be encoded in the source code, and the only difference between envidonments may be the source code branch or revision (which shold indeally be managed in some upstream CD service as well, and not by hand).
 
-Then enable gitops 
-```
-EKSCTL_EXPERIMENTAL=true eksctl \
-    enable repo -f eksctl-cluster.yaml \
-    --git-url=git@github.com:robparrott/k8s-gitops.git \
-    --git-email=[ email ] \
-    --git-private-ssh-key-path ~/.ssh/gitops-k8s
-```
+# Use
 
-and confirm things are running.
-
-You may need to get the newly created key and also add it as a deploy key in GitHub ... little flaky. Install `fluxcyl` and run `fluxctl identity --k8s-fwd-ns flux`. See https://docs.fluxcd.io/en/latest/tutorials/get-started.html#giving-write-access. YMMV.
-
-# Scaling Manually
-
-Determine the relevant nodegroup name (should be the name from the yaml file):
-```
-eksctl get nodegroup \
-        --region=us-east-2 \
-        --cluster=parrott-confluent-kafka
-```
-
-And then scale up or down:
-
-```
-eksctl scale nodegroup \
-        --region=us-east-2 \
-        --cluster=parrott-confluent-kafka \
-        --name=general \
-        --nodes=6
-```
-
-# Getting the cluster admin bearer token
+## Getting the cluster admin bearer token
 
 Service Account "eks-admin" has a bearer token for access, so you need to dig that out to access Kubernetes Dashboard:
 
@@ -75,16 +50,23 @@ Service Account "eks-admin" has a bearer token for access, so you need to dig th
 SECRET=$(kubectl -n kube-system get secret | grep eks-admin-token | awk '{print $1}')
 TOKEN=$( kubectl -n kube-system describe secret ${SECRET} | grep "^token:" | awk '{print $2}' )
 echo $TOKEN
-
 ```
 
-# Tailing Logs 
+Use for accessing the Kubernetes Dashboard once installed.
+
+## Tailing Logs 
 
 You can get the `kail` tool to selectively tail logs from pods locally:
 
 * https://github.com/boz/kail
 
-# Forwarding Services:
+Exmaple: tail all logs from a given namespace:
+
+```
+kail -n argocd
+```
+
+## Forwarding Services:
 
 Vault:
 
