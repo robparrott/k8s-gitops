@@ -9,16 +9,18 @@ resources:
   - systems/admin-access/application.yaml
   - systems/olm/application.yaml
   - systems/prometheus-operator/application.yaml
-  # - systems/kubernetes-dashboard.yaml 
-  # - app-manifests/service-mesh.yaml
-  # - app-manifests/elastic-operator.yaml
+  - systems/kubernetes-dashboard/application.yaml 
+  - systems/service-mesh/application.yaml
+  - systems/elastic-operator/application.yaml   
+  - systems/vault-operator/application.yaml
 
-  # - systems/vault/vault-operator.yaml
+# #- vault.yaml
+
 
 # - logging-operator.yaml
 # - logging.yaml
 
-# #- vault.yaml
+
 
 # #- guestbook.yaml
 
