@@ -6,17 +6,17 @@ namespace: argocd
 # Ordered list of application manifests to install
 #
 resources:
-- ./admin-access.yaml
-- ./olm.yaml
-- ../systems/prometheus-operator/application.yaml
-- ../systems/kubernetes-dashboard.yaml 
-- ./service-mesh.yaml
+- app-manifests/admin-access.yaml
+- app-manifests/olm.yaml
+- ./systems/prometheus-operator/application.yaml
+- ./systems/kubernetes-dashboard.yaml 
+- app-manifests/service-mesh.yaml
+- app-manifests/elastic-operator.yaml
 
-# - prometheus-operator.yaml
 # #- vault-operator.yaml
 # - logging-operator.yaml
 # - logging.yaml
-# - eck.yaml
+
 # #- vault.yaml
 
 # #- guestbook.yaml
