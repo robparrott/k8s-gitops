@@ -5,6 +5,7 @@ namespace: argocd
 resources:
 - ./admin-access.yaml
 - ./olm.yaml
+- ./prometheus-operator.yaml
 
 # - service-mesh.yaml
 # - kubernetes-dashboard.yaml
