@@ -1,8 +1,8 @@
 # Overview 
 
-This repository and it's companion https://github.com/robparrott/gitops-example provide an example of establihsing a GitOps pattern in Kubernetes (http://k8s.io/) using ArgoCD (https://argocd.io/).
+This repository and it's companion https://github.com/parrottr/gitops-example provide an example of establihsing a GitOps pattern in Kubernetes (http://k8s.io/) using ArgoCD (https://argocd.io/).
 
-This particular repository provides a declarative set of system and applciation configurations that can be included and assembled to configure and deploy applications to a kubernetes cluster. before jumping in here refer to the companion repository https://github.com/robparrott/gitops-example for any setup.
+This particular repository provides a declarative set of system and applciation configurations that can be included and assembled to configure and deploy applications to a kubernetes cluster. before jumping in here refer to the companion repository https://github.com/parrottr/gitops-example for any setup.
 
 # Layout
 
@@ -24,7 +24,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/robparrott/k8s-gitops.git
+    repoURL: https://github.com/parrottr/k8s-gitops.git
     targetRevision: HEAD
     path: systems/admin-access
   destination:
