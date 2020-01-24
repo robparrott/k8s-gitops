@@ -16,5 +16,5 @@ resources:
 #  - systems/vault-operator/application.yaml
   - systems/weavescope/application.yaml
 
-  # - systems/pulsar/application.yaml
+  - systems/pulsar/application.yaml
 
