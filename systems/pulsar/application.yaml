@@ -17,7 +17,7 @@ spec:
   source:
     repoURL: https://github.com/apache/pulsar/
     targetRevision: HEAD
-    path: tree/master/deployment/kubernetes/helm/examples/k8s
+    path: deployment/kubernetes/helm/examples/k8s
 
     # targetRevision:  1.0.0
     # chart: pulsar
