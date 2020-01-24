@@ -8,10 +8,10 @@ namespace: argocd
 #
 resources:
   - systems/admin-access/application.yaml
-  # - systems/olm/application.yaml
+  - systems/service-mesh/application.yaml
+  - systems/olm/application.yaml
   # - systems/prometheus-operator/application.yaml
   - systems/kubernetes-dashboard/application.yaml 
-  # - systems/service-mesh/application.yaml
   # - systems/elastic-operator/application.yaml   
   # - systems/vault-operator/application.yaml
 
