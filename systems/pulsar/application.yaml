@@ -16,8 +16,11 @@ spec:
   project: default
   source:
     repoURL: https://github.com/apache/pulsar/tree/master/deployment/kubernetes/helm
-    targetRevision:  1.0.0
-    chart: pulsar
+    targetRevision: HEAD
+    path: examples/k8s
+        
+    # targetRevision:  1.0.0
+    # chart: pulsar
 
     helm:
       values: |
