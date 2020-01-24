@@ -1,0 +1,31 @@
+# borrowed from https://cloud.weave.works/k8s/scope.yaml?k8s-version=1.9.3
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: weave
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: weavescope
+  namespace: argocd
+  
+  finalizers:  # Add a this finalizer ONLY if you want these to cascade delete.
+    - resources-finalizer.argocd.argoproj.io  
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/weaveworks/scope.git
+    targetRevision: HEAD
+    path: examples/k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: weave
+
+  # Sync policy
+  syncPolicy:
+    automated:
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+

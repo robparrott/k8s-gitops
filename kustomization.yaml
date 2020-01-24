@@ -14,6 +14,7 @@ resources:
   - systems/kubernetes-dashboard/application.yaml 
   - systems/elastic-operator/application.yaml   
   - systems/vault-operator/application.yaml
+  - systems/weavescope/application.yaml
 
   # - systems/pulsar/application.yaml
 
