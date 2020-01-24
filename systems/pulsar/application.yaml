@@ -15,10 +15,10 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/apache/pulsar/tree/master/deployment/kubernetes/helm
+    repoURL: https://github.com/apache/pulsar/
     targetRevision: HEAD
-    path: examples/k8s
-        
+    path: tree/master/deployment/kubernetes/helm/examples/k8s
+
     # targetRevision:  1.0.0
     # chart: pulsar
 
