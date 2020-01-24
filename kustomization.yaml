@@ -12,7 +12,7 @@ resources:
 #  - systems/olm/application.yaml
 #  - systems/prometheus-operator/application.yaml
   - systems/kubernetes-dashboard/application.yaml 
-  - systems/elastic-operator/application.yaml   
+  # - systems/elastic-operator/application.yaml   
   - systems/vault-operator/application.yaml
   - systems/weavescope/application.yaml
 
