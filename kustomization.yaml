@@ -8,6 +8,7 @@ namespace: argocd
 #
 resources:
   - stacks/admin.yaml
+  - stacks/goodies.yaml  
   # - stacks/devops.yaml
   # - stacks/infrastructure.yaml
   # - stacks/observability.yaml
