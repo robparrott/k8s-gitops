@@ -9,7 +9,9 @@ namespace: argocd
 resources:
   - stacks/admin.yaml
   - stacks/devops.yaml
-  
+  - stacks/infrastructure.yaml
+  - stacks/observability.yaml
+
 #   - systems/service-mesh/application.yaml
 #   - systems/olm/application.yaml
 # #  - systems/prometheus-operator/application.yaml
