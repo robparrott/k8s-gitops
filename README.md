@@ -1,11 +1,24 @@
 # Overview 
 
-This repository and it's companion https://github.com/parrottr/gitops-example provide an example of establihsing a GitOps pattern in Kubernetes (http://k8s.io/) using ArgoCD (https://argocd.io/).
+This repository and it's companion https://github.com/parrottr/gitops-example provide an example of establishing a GitOps pattern in Kubernetes (http://k8s.io/) using ArgoCD (https://argocd.io/).
 
-This particular repository provides a declarative set of system and applciation configurations that can be included and assembled to configure and deploy applications to a kubernetes cluster. before jumping in here refer to the companion repository https://github.com/parrottr/gitops-example for any setup.
+In particular, this repository provides a point of control for excluding other sets of stacks or packages into a "App of Apps" pattern common in ArgoCD:
+
+* https://argoproj.github.io/argo-cd/operator-manual/cluster-bootstrapping/
+
+In particular, we organize sets of capabilities heirarchically as follows
+
+* `Stacks`: Sets of packages deployed together into a suite of capabilities, usually a common layer/overall application
+* `Packages`: common set of components, but deployed indovidually into kubernetes (sets of helm charts, manifests etc.)
+* `Modules`: nidividually deployed bits and pieces (helm charts, manifest sets etc.)
+
+Before jumping in here refer to the companion repository https://github.com/robparrott/gitops-example for any setup.
 
 # Layout
 
+For this repository, we deploy specify stacks for deployment
+
+tacks
 For reference on configuraiton ArgoCD declaratively, see the docs at:
 
 * https://argoproj.github.io/argo-cd/operator-manual/declarative-setup/
