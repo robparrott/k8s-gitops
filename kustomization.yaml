@@ -12,7 +12,7 @@ resources:
   # - stacks/devops.yaml
  - stacks/infrastructure.yaml
   # - stacks/observability.yaml
-
+ - stacks/aws.yaml
 
 
 #   - systems/service-mesh/application.yaml
