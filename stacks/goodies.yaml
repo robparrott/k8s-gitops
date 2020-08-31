@@ -5,8 +5,8 @@ metadata:
   name: stack-goodies
   namespace: argocd
 
-  # finalizers:  # Add a this finalizer ONLY if you want these to cascade delete.
-  #   - resources-finalizer.argocd.argoproj.io  
+  finalizers:  # Add a this finalizer ONLY if you want these to cascade delete.
+    - resources-finalizer.argocd.argoproj.io  
 
 spec:
   project: default
@@ -21,12 +21,12 @@ spec:
     namespace: argocd
 
   # # Sync policy
-  # syncPolicy:
-  #   automated:
-  #     # Specifies if resources should be pruned during auto-syncing ( false by default ).
-  #     prune: false 
+  syncPolicy:
+    automated:
+      # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      prune: false 
 
-  #     # Specifies if partial app sync should be executed when resources are 
-  #     #   changed only in target Kubernetes cluster and no git change detected 
-  #     #   ( false by default ).
-  #     selfHeal: false 
+      # Specifies if partial app sync should be executed when resources are 
+      #   changed only in target Kubernetes cluster and no git change detected 
+      #   ( false by default ).
+      selfHeal: false 
