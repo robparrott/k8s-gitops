@@ -13,7 +13,7 @@ resources:
  - stacks/infrastructure.yaml
  - stacks/observability.yaml
  - stacks/aws.yaml
-
+ - stacks/workflow.yaml
 
 #   - systems/service-mesh/application.yaml
 #   - systems/olm/application.yaml
